@@ -6,8 +6,55 @@ import CardHeader from "@mui/material/CardHeader";
 import CardMedia from "@mui/material/CardMedia";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
+import TextField from "@mui/material/TextField";
+import App from "./App";
+
 import { useState } from "react";
 
+<Typography variant="h5" align="center" color="text.secondary" sx={{ mx: 10 }}>
+  heyy:
+</Typography>;
+
+function askopenai(userPrompt) {
+  var myHeaders = new Headers();
+  myHeaders.append("Content-Type", "application/json");
+  myHeaders.append(
+    "Authorization",
+    "Bearer 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"
+  );
+  console.log(userPrompt);
+  // console.log(document.getElementById("fullWidth").innerHTML);
+
+  var raw = JSON.stringify({
+    model: "text-davinci-003",
+    // prompt: "write a poem about my mom. she loves to cook",
+    prompt: userPrompt,
+    max_tokens: 200,
+    temperature: 0,
+    top_p: 1,
+    n: 1,
+    stream: false,
+    logprobs: null,
+  });
+
+  var requestOptions = {
+    method: "POST",
+    headers: myHeaders,
+    body: raw,
+    redirect: "follow",
+  };
+
+  // fetch("https://api.openai.com/v1/completions", requestOptions)
+  //   .then((response) => response.json())
+  //   // .then((result) => console.log(result.choices[0].text))
+  //   .then(
+  //     (result) =>
+  //       (document.getElementById("input").innerHTML = result.choices[0].text)
+  //   )
+
+  //   .catch((error) => console.log("error", error));
+}
+//
 var requestOptions = {
   method: "GET",
   redirect: "follow",
@@ -49,7 +96,7 @@ export default function CharacterCard(props) {
 
   return (
     <Card>
-      <CardMedia component="img" height="350px" image={catImg} />
+      {/* <CardMedia component="img" height="350px" image={catImg} />
       <CardHeader
         title={catBreed}
         titleTypographyProps={{ align: "center" }}
@@ -74,7 +121,7 @@ export default function CharacterCard(props) {
         >
           GET CAT
         </Button>
-      </CardActions>
+      </CardActions> */}
     </Card>
   );
 }
