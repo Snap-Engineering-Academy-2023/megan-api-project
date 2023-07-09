@@ -14,6 +14,20 @@ import "./style.css";
 // import askopenai from "./CharacterCard";
 
 function App() {
+  const styles = {
+    Textbox: {
+      backgroundColor: "white",
+      // color: "#f5eae3",
+      // border: "none",
+      // padding: "50px",
+      // border: "2px solid #746F57",
+      borderRadius: "20px",
+      fontFamily: "Playfair Display, serif",
+      width: "900px",
+      // position: "absolute",
+      // left: "5%",
+    },
+  };
   // state variable to store the click count!
   const [count, setCounter] = useState(0);
   const [searchText, setSearchText] = useState("");
@@ -21,6 +35,54 @@ function App() {
   const [array, moveArray] = useState("");
   const [nums, newNums] = useState(0);
   const [logo, updateLogo] = useState("newlogo.png");
+  function enter(event) {
+    if (event.key === "Enter") {
+      console.log(searchText);
+      var myHeaders = new Headers();
+      myHeaders.append("Content-Type", "application/json");
+      myHeaders.append(
+        "Authorization",
+        "Bearer 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"
+      );
+
+      var raw = JSON.stringify({
+        model: "text-davinci-003",
+        prompt: ["Write me a poem about..." + searchText],
+        //prompt: newValue,
+        max_tokens: 250,
+        temperature: 1,
+        top_p: 1,
+        n: 1,
+        stream: false,
+        logprobs: null,
+      });
+
+      var requestOptions = {
+        method: "POST",
+        headers: myHeaders,
+        body: raw,
+        redirect: "follow",
+      };
+
+      fetch("https://api.openai.com/v1/completions", requestOptions)
+        .then((response) => response.json())
+        // .then((result) => console.log(result.choices[0].text))
+        // .then(
+        //   (result) =>
+        //     (document.getElementById("input").innerHTML =
+        //       result.choices[0].text)
+        // )
+        // .then((result) => console.log(result.choices[0].text))
+        .then((result) => postPoem(result.choices[0].text))
+
+        .catch((error) => console.log("error", error));
+
+      // updateLogo("");
+      newNums(0);
+      moveArray(list[nums]);
+      newNums(nums + 1);
+    }
+  }
   var list = [
     "minimalist.png",
     "poem.png",
@@ -29,7 +91,6 @@ function App() {
     "orangebirthday.png",
     "vintage.png",
   ];
-  // var nums = 0;
 
   return (
     <div className="App">
@@ -48,55 +109,53 @@ function App() {
           </Toolbar> */}
         </AppBar>
         <Container maxWidth="md" sx={{ my: 4 }}>
-          <img src={logo} width="700px"></img>
+          <img src={"logo.png"} width="900px"></img>
           <Typography
             variant="h2"
             align="center"
             color="text.primary"
             sx={{ py: 2 }}
           ></Typography>
+
           <TextField
+            classname="TextField"
             fullWidth
             width="1000px"
             label="Write me a poem about..."
             id="fullWidth"
             value={searchText}
+            InputProps={{
+              style: styles.Textbox,
+            }}
             onChange={(event) => {
               var newValue = event.target.value;
               setSearchText(newValue);
               // console.log("search", newValue);
             }}
+            onKeyPress={enter}
           />
 
-          <Button
+          {/* <Button
             href="#"
             left="50%"
             variant="outlined"
             sx={{ my: 1, mx: 1.5 }}
+            align="center"
             onClick={() => {
               console.log(searchText);
-              // var userPrompt = prompt(
-              //   "Who do you want to write a poem about? Describe them"
-              // );
-
-              // var userPrompt = document.getElementById("fullWidth").innerHTML;
-
-              // console.log(document.getElementById("fullWidth").innerHTML);
-              // console.log("Hello " + userPrompt + "!");
-
               var myHeaders = new Headers();
               myHeaders.append("Content-Type", "application/json");
               myHeaders.append(
                 "Authorization",
-                "Bearer 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"
+                "Bearer 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"
               );
 
               var raw = JSON.stringify({
                 model: "text-davinci-003",
                 prompt: ["Write me a poem about..." + searchText],
                 //prompt: newValue,
-                max_tokens: 200,
-                temperature: 0,
+                max_tokens: 250,
+                temperature: 1,
                 top_p: 1,
                 n: 1,
                 stream: false,
@@ -130,7 +189,7 @@ function App() {
             }}
           >
             Submit
-          </Button>
+          </Button> */}
         </Container>
 
         <div class="container">
@@ -144,12 +203,12 @@ function App() {
               color="text.secondary"
               sx={{
                 mx: 10,
-                fontSize: "25px",
+                fontSize: "18px",
                 fontFamily: "Playfair Display, serif",
               }}
               id="input"
             >
-              {prePoem}
+              <pre>{prePoem}</pre>
             </Typography>
           </div>
         </div>

@@ -1,7 +1,7 @@
 .centered {
   position: absolute;
-  top: 150%;
-  left: 50%;
+  top: 148%;
+  left: 48%;
   /* font-size: 1px; */
   max-width: 600px;
   transform: translate(-50%, -50%);
@@ -10,19 +10,20 @@
   margin-top: 50px;
   margin-bottom: 1px; */
   /* width: "100"; */
+  text-align: center;
 }
 
 .right {
   background-color: #f5eae3;
 
-  height: 100%;
+  height: 750px;
 }
 
 .left {
   background-color: #f5eae3;
   /* background-color: black; */
   width: 100%;
-  height: 100%;
+  height: 800px;
   float: left;
 }
 img {
