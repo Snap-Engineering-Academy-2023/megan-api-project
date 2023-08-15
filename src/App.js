@@ -5,8 +5,8 @@ import Grid from "@mui/material/Grid";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
-import CharacterCard from "./CharacterCard";
-import characters from "./protagonists.json";
+// import CharacterCard from "./CharacterCard";
+// import characters from "./protagonists.json";
 import { useState } from "react";
 import TextField from "@mui/material/TextField";
 // import "../style.css";
@@ -224,10 +224,15 @@ function App() {
         >
           Change Background
         </Button>
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
       </span>
       {/* End hero unit */}
       <Container maxWidth="lg">
-        <Grid
+        {/* <Grid
           container
           spacing={5}
           justifyContent="center"
@@ -242,7 +247,7 @@ function App() {
               />
             </Grid>
           ))}
-        </Grid>
+        </Grid> */}
       </Container>
     </div>
   );
